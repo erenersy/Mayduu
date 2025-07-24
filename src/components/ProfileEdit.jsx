@@ -10,7 +10,6 @@ function ProfileEdit() {
 
   const [form] = Form.useForm();
 
-  // Form verisini başlatmak için initialValues kullanacağız
   const initialValues = {
     username: currentUser.username,
     email: currentUser.email,

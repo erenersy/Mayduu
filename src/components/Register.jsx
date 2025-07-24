@@ -43,7 +43,7 @@ function Register() {
     
     <div className="register-container">
       <img src={Logo} alt="mayduu logo" />
-      <Title level={2} className="header" style={{marginBottom: "25px" }}>Mayduu'ya Hoşgeldin</Title>
+      <Title level={2} className="header" style={{marginBottom: "25px" }}>Mayduu'ya Hoş Geldin</Title>
 
       <Form
         name="register"
