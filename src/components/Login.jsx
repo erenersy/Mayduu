@@ -28,7 +28,7 @@ function Login() {
     <div className="login-container">
       <img src={Logo} alt="mayduu logo" style={{ display: 'block' }} />
       <Title level={2} className="header" style={{ marginBottom: "25px" }}>
-        Mayduu'ya Hoşgeldin
+        Mayduu'ya Hoş Geldin
       </Title>
 
       <Form
