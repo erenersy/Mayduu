@@ -3,6 +3,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import TodoPage from './components/TodoPage';
 import ProfileEdit from './components/ProfileEdit';
+import 'antd/dist/reset.css';
 
 function App() {
   return (

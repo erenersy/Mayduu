@@ -1,78 +1,65 @@
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
 import { useState } from 'react';
+import { Form, Input, Button, Radio, message } from 'antd';
 
 function ProfileEdit() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
   const [showProfile, setShowProfile] = useState(false);
   const [logout, setLogout] = useState(false);
-  
- 
-  const [formData, setFormData] = useState({
+
+  const [form] = Form.useForm();
+
+  // Form verisini başlatmak için initialValues kullanacağız
+  const initialValues = {
     username: currentUser.username,
     email: currentUser.email,
     password: currentUser.password,
     gender: currentUser.gender,
-    
-  });
+  };
 
   const handleProfile = () => {
     setShowProfile(prev => !prev);
-      if (setLogout){
-    setLogout(false);
-}
+    if (logout) {
+      setLogout(false);
+    }
   };
 
   const handleLogout = () => {
     setLogout(true);
   };
 
-    const handleChange = (e) => {
-
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const updatedUser = formData
-    
+  const onFinish = (values) => {
+    // values: formdaki güncel bilgiler
+    const updatedUser = values;
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
+    const updatedUsers = users.map(user =>
+      user.username === currentUser.username ? updatedUser : user
+    );
 
-      const updatedUsers = users.map(user =>
-    user.username === currentUser.username ? updatedUser: user
-  );
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+    message.success("Bilgiler Güncellendi.");
 
-localStorage.setItem("users", JSON.stringify(updatedUsers))
-localStorage.setItem("currentUser", JSON.stringify(updatedUser))
-alert("Bilgiler Güncellendi.")
-
+    // Todo key güncellemesi
     const oldTodoKey = `todos_${currentUser.username}`;
     const newTodoKey = `todos_${updatedUser.username}`;
 
-  if (oldTodoKey !== newTodoKey) {
-    const oldTodos = JSON.parse(localStorage.getItem(oldTodoKey)) || [];
-    // Eski todo listesini yeni key'e taşı
-    localStorage.setItem(newTodoKey, JSON.stringify(oldTodos));
-    // Eski todo key'ini sil
-    localStorage.removeItem(oldTodoKey);
-  }
+    if (oldTodoKey !== newTodoKey) {
+      const oldTodos = JSON.parse(localStorage.getItem(oldTodoKey)) || [];
+      localStorage.setItem(newTodoKey, JSON.stringify(oldTodos));
+      localStorage.removeItem(oldTodoKey);
+    }
 
-  window.location.reload();
-
-  }
+    // Sayfayı yenile
+    window.location.reload();
+  };
 
   return (
     <>
+     <div className='app-container'>
       <Header
         user={currentUser.username}
         showProfile={showProfile}
@@ -81,79 +68,71 @@ alert("Bilgiler Güncellendi.")
         handleLogout={handleLogout}
         setLogout={setLogout}
       />
-<div className="app-container">
-      <div className="edit-container">
-        <div className='edit-page'>
-           <form onSubmit={handleSubmit} className="inputs">
-            <h1>Profil Bilgilerin</h1>
-         <label htmlFor="username">Kullanıcı Adı</label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          value={formData.username} 
-          onChange={handleChange}
-          placeholder="Kullanıcı Adı Giriniz"
-          required
-        />
+         
+            <main className="main-content">
+        <div className="edit-container">
+          <div className="edit-page">
+            <Form
+              form={form}
+              name="profileEdit"
+              onFinish={onFinish}
+              layout="vertical"
+              initialValues={initialValues}
+              className="inputs"
+            >
+              <h1>Profil Bilgilerin</h1>
 
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email Giriniz"
-          required
-        />
+              <Form.Item
+                label="Kullanıcı Adı"
+                name="username"
+                rules={[{ required: true, message: 'Lütfen kullanıcı adınızı girin!' }]}
+              >
+                <Input placeholder="Kullanıcı Adı Giriniz" />
+              </Form.Item>
 
-        <label htmlFor="password">Şifre</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Şifre Giriniz"
-          required
-        />
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  { required: true, message: 'Lütfen email girin!' },
+                  { type: 'email', message: 'Geçerli bir email girin!' }
+                ]}
+              >
+                <Input placeholder="Email Giriniz" />
+              </Form.Item>
 
-        <label>Cinsiyet</label>
-        <div>
-          <input
-            type="radio"
-            id="kadin"
-            name="gender"
-            value="Kadın"
-            checked={formData.gender === 'Kadın'}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="kadin">Kadın</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="erkek"
-            name="gender"
-            value="Erkek"
-            checked={formData.gender === 'Erkek'}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="erkek">Erkek</label>
+              <Form.Item
+                label="Şifre"
+                name="password"
+                rules={[{ required: true, message: 'Lütfen şifrenizi girin!' }]}
+              >
+                <Input.Password placeholder="Şifre Giriniz" />
+              </Form.Item>
+
+              <Form.Item
+                label="Cinsiyet"
+                name="gender"
+                rules={[{ required: true, message: 'Lütfen cinsiyet seçin!' }]}
+              >
+                <Radio.Group>
+                  <Radio value="Kadın">Kadın</Radio>
+                  <Radio value="Erkek">Erkek</Radio>
+                </Radio.Group>
+              </Form.Item>
+
+              <Form.Item>
+                <Button className="button" type="none" htmlType="submit">
+                  Bilgileri Güncelle
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
         </div>
 
-        <button className="button" type="submit">Bilgileri Güncelle</button>
-        </form>
-
-        </div>
-        
-      </div>
-      </div>
-
+      </main>
+   
       <Footer />
+         </div>
     </>
   );
 }

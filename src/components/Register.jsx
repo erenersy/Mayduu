@@ -1,119 +1,107 @@
-import '../App.css'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Form, Input, Button, Radio, Typography, message } from 'antd';
 import Logo from '../images/mayduu-black.png';
+import '../App.css';
 
+const { Title, Text } = Typography;
 
 function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    gender: '',
-  });
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const [loading, setLoading] = useState(false);
 
-    const { name, value } = e.target;
+  const onFinish = (values) => {
+    setLoading(true);
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const users = JSON.parse(localStorage.getItem('users')) || [];
 
+    const isUserExists = users.some((user) => user.username === values.username);
+    if (isUserExists) {
+      message.error('Bu kullanıcı adı zaten alınmış!');
+      setLoading(false);
+      return;
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    const isMailExists = users.some((user) => user.email === values.email);
+    if (isMailExists) {
+      message.error('Bu e-mail zaten kullanımda!');
+      setLoading(false);
+      return;
+    }
 
-       const users = JSON.parse(localStorage.getItem('users')) || [];
-
-
-    const isUserExists = users.some((user) => user.username === formData.username);
-
-  if (isUserExists) {
-    alert('Bu kullanıcı adı zaten alınmış!');
-    return;    
-  }
-
-  
-   const isMailExists = users.some((user) => user.email === formData.email);
-
-  if (isMailExists) {
-    alert('Bu e-mail zaten kullanımda!');
-    return;
-  }
-
-    users.push(formData);
-    
+    users.push(values);
     localStorage.setItem('users', JSON.stringify(users));
-    alert('Bilgiler kaydedildi!');
+
+    message.success('Bilgiler kaydedildi!');
+    setLoading(false);
+    navigate('/login');
   };
 
   return (
-    <div className="container">
+    
+    
+    <div className="register-container">
       <img src={Logo} alt="mayduu logo" />
-      <h1 className="header">Mayduu'ya Hoşgeldin</h1>
-      <form onSubmit={handleSubmit} className="inputs">
-        <label htmlFor="username">Kullanıcı Adı</label>
-        <input
-          id="username"
+      <Title level={2} className="header" style={{marginBottom: "25px" }}>Mayduu'ya Hoşgeldin</Title>
+
+      <Form
+        name="register"
+        onFinish={onFinish}
+        layout="vertical"
+        className="custom-form"
+
+        
+      
+      >
+        <Form.Item
+          label="Kullanıcı Adı"
           name="username"
-          type="text"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
+          rules={[{ required: true, message: 'Lütfen kullanıcı adınızı girin!' }]}
+        >
+          <Input />
+        </Form.Item>
 
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
+        <Form.Item
+          label="Email"
           name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+          rules={[
+            { required: true, message: 'Lütfen e-mail adresinizi girin!' },
+            { type: 'email', message: 'Geçerli bir e-mail girin!' }
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
-        <label htmlFor="password">Şifre</label>
-        <input
-          id="password"
+        <Form.Item
+          label="Şifre"
           name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+          rules={[{ required: true, message: 'Lütfen şifrenizi girin!' }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-        <label>Cinsiyet</label>
-        <div>
-          <input
-            type="radio"
-            id="kadin"
-            name="gender"
-            value="Kadın"
-            checked={formData.gender === 'Kadın'}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="kadin">Kadın</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="erkek"
-            name="gender"
-            value="Erkek"
-            checked={formData.gender === 'Erkek'}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="erkek">Erkek</label>
-        </div>
+        <Form.Item
+          label="Cinsiyet"
+          name="gender"
+          rules={[{ required: true, message: 'Lütfen cinsiyetinizi seçin!' }]}
+        >
+          <Radio.Group>
+            <Radio value="Kadın">Kadın</Radio>
+            <Radio value="Erkek">Erkek</Radio>
+          </Radio.Group>
+        </Form.Item>
 
-        <button className="button" type="submit">Kaydol</button>
-        <p className="info">Kayıtlı mısın? <Link to="/login">Giriş yap</Link></p>
-      </form>
+        <Form.Item>
+          <Button className="button" type="none" htmlType="submit" block loading={loading} >
+            Kaydol
+          </Button>
+        </Form.Item>
+
+        <Text className="info" style={{ display: 'block', textAlign: 'center' }}>
+          Kayıtlı mısın? <Link to="/login">Giriş yap</Link>
+        </Text>
+      </Form>
     </div>
   );
 }

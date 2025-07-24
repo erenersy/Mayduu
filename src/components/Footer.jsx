@@ -1,4 +1,4 @@
-import Logo from '../images/mayduu-black.png';
+
 
 function Footer() {
   return (
