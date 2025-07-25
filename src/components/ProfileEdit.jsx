@@ -19,9 +19,6 @@ function ProfileEdit() {
 
   const handleProfile = () => {
     setShowProfile(prev => !prev);
-    if (logout) {
-      setLogout(false);
-    }
   };
 
   const handleLogout = () => {
@@ -29,10 +26,32 @@ function ProfileEdit() {
   };
 
   const onFinish = (values) => {
-    // values: formdaki güncel bilgiler
+
+    // Values: formdaki güncel bilgiler
     const updatedUser = values;
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    
+  const isUsernameTakenByAnother = users.some(user =>
+    user.username === updatedUser.username &&
+    user.username !== currentUser.username
+  );
+
+  const isEmailTakenByAnother = users.some(user =>
+    user.email === updatedUser.email &&
+    user.email !== currentUser.email
+  );
+
+  if (isUsernameTakenByAnother) {
+    message.error("Bu kullanıcı adı zaten kullanımda.");
+    return;
+  }
+
+  if (isEmailTakenByAnother) {
+    message.error("Bu e-posta adresi zaten kullanımda.");
+    return;
+  }
 
     const updatedUsers = users.map(user =>
       user.username === currentUser.username ? updatedUser : user
