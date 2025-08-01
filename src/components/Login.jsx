@@ -1,6 +1,6 @@
 import '../App.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { Form, Input, Button, Typography, message } from 'antd';
+import { Form, Input, Button, Typography} from 'antd';
 import Logo from '../images/mayduu-black.png';
 
 const { Title, Text } = Typography;
@@ -20,11 +20,12 @@ function Login() {
       localStorage.setItem('currentUser', JSON.stringify(foundUser));
       navigate('/todopage');
     } else {
-      message.error('Kullanıcı adı veya şifre yanlış!');
+      alert('Kullanıcı adı veya şifre yanlış!');
     }
   };
 
   return (
+    <div className="login-wrapper">
     <div className="login-container">
       <img src={Logo} alt="mayduu logo" style={{ display: 'block' }} />
       <Title level={2} className="header" style={{ marginBottom: "25px" }}>
@@ -66,6 +67,7 @@ function Login() {
       <Text className="info" style={{ display: 'block', textAlign: 'center' }}>
         Kayıtlı değil misin? <Link to="/register">Kaydol</Link>
       </Text>
+    </div>
     </div>
   );
 }

@@ -1,12 +1,28 @@
 import { useState, useEffect } from 'react';
-import { Avatar, Dropdown, Menu, Button, Popconfirm, message } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
+import { Avatar, Dropdown, Menu, Button, Popconfirm,Drawer } from 'antd';
+import {SettingOutlined, MenuOutlined } from '@ant-design/icons';
 import Logo from '../images/mayduu-black.png';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
+
 
 function Header({ user }) {
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+const [drawerVisible, setDrawerVisible] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+
+
   const [usergender, setUserGender] = useState("👨🏻");
   const navigate = useNavigate();
+  const location = useLocation();
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const gender = currentUser?.gender;
 
@@ -23,12 +39,17 @@ function Header({ user }) {
   const handleLogoutConfirm = () => {
     localStorage.removeItem('currentUser');
     window.location.href = '/login';
-    message.success('Çıkış yapıldı.');
+    alert('Çıkış yapıldı.');
   };
 
   const menu = (
     <Menu style={{marginTop: "30px"}}>
+              <Avatar style={{ backgroundColor: '#ffffffff' }} size="large">
+          {usergender}
+        </Avatar>
+        <b>hoşgeldin {user}</b>
       <Menu.Item key="edit" onClick={handleProfileEdit} >
+
         <Button className='button' type='none'>Profili Düzenle</Button>
       </Menu.Item>
       <Menu.Item key="logout">
@@ -52,21 +73,71 @@ function Header({ user }) {
     </Menu>
   );
 
+  const selectedKey = (() => {
+  if (location.pathname === '/todopage') return 'homepage';
+  if (location.pathname === '/userspage') return 'userspage';
+  return '';
+})();
+
   return (
-    <header className="header-app" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', background: '#f5f5f5' }}>
+    <header className="header-app">
       <div className="logo">
-        <a href="/todopage">
-          <img src={Logo} alt="mayduu logo"/>
-        </a>
+<Link to="/todopage">
+  <img src={Logo} alt="mayduu logo" />
+</Link>
+        
       </div>
-      <div className="profile-settings" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <Avatar style={{ backgroundColor: '#ffffffff' }} size="large">
-          {usergender}
-        </Avatar>
-        <b>{user}</b>
-        <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
+
+{isMobile ? (
+  <>
+    <Button
+      icon={<MenuOutlined />}
+      
+      onClick={() => setDrawerVisible(true)}
+    />
+    <Drawer
+      title="Menü"
+      placement="left"
+      onClose={() => setDrawerVisible(false)}
+      open={drawerVisible}
+    >
+      <Menu
+        mode="vertical"
+        selectedKeys={[selectedKey]}
+
+        onClick={() => setDrawerVisible(false)}
+        items={[
+          { key: 'homepage', label: <Link to="/todopage">Ana Menü</Link> },
+          { key: 'userspage', label: <Link to="/userspage">Kullanıcılar</Link> },
+          { key: 'contact', label: <Link to="/contact">İletişim</Link> }
+        ]}
+      />
+    </Drawer>
+  </>
+) : (
+  <Menu
+    className="menu-bar"
+    mode="horizontal"
+    selectedKeys={[selectedKey]}
+    style={{ display: "flex", textAlign: 'center', justifyContent: "center" }}
+    items={[
+      { key: 'homepage', label: <Link to="/todopage">Ana Menü</Link> },
+      { key: 'userspage', label: <Link to="/userspage">Kullanıcılar</Link> },
+      { key: 'contact', label: <Link to="/contact">İletişim</Link> }
+    ]}
+  />
+)}
+
+
+      <div className="profile-settings-wrapper">
+        <div className="profile-settings">
+        
+        <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
+          <div className="settings-button">
           <Button icon={<SettingOutlined />} />
+          </div>
         </Dropdown>
+      </div>
       </div>
     </header>
   );

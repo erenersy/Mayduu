@@ -1,12 +1,9 @@
 import Header from './Header';
 import Footer from './Footer';
-import { useState } from 'react';
-import { Form, Input, Button, Radio, message } from 'antd';
+import { Form, Input, Button, Radio} from 'antd';
 
 function ProfileEdit() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
-  const [showProfile, setShowProfile] = useState(false);
-  const [logout, setLogout] = useState(false);
 
   const [form] = Form.useForm();
 
@@ -17,13 +14,7 @@ function ProfileEdit() {
     gender: currentUser.gender,
   };
 
-  const handleProfile = () => {
-    setShowProfile(prev => !prev);
-  };
 
-  const handleLogout = () => {
-    setLogout(true);
-  };
 
   const onFinish = (values) => {
 
@@ -44,12 +35,12 @@ function ProfileEdit() {
   );
 
   if (isUsernameTakenByAnother) {
-    message.error("Bu kullanıcı adı zaten kullanımda.");
+    alert("Bu kullanıcı adı zaten kullanımda.");
     return;
   }
 
   if (isEmailTakenByAnother) {
-    message.error("Bu e-posta adresi zaten kullanımda.");
+    alert("Bu e-posta adresi zaten kullanımda.");
     return;
   }
 
@@ -59,7 +50,7 @@ function ProfileEdit() {
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-    message.success("Bilgiler Güncellendi.");
+    alert("Bilgiler Güncellendi.");
 
     // Todo key güncellemesi
     const oldTodoKey = `todos_${currentUser.username}`;
@@ -80,11 +71,6 @@ function ProfileEdit() {
      <div className='app-container'>
       <Header
         user={currentUser.username}
-        showProfile={showProfile}
-        logout={logout}
-        handleProfile={handleProfile}
-        handleLogout={handleLogout}
-        setLogout={setLogout}
       />
          
             <main className="main-content">

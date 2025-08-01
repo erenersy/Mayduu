@@ -148,6 +148,7 @@ function TodoPage() {
                     danger
                     onClick={() => {
                       setEdit(false);
+                      console.log(edit)
                       setEditIndex(null);
                       setEditText('');
                     }}

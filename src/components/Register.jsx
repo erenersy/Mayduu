@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Radio, Typography, message } from 'antd';
+import { Form, Input, Button, Radio, Typography } from 'antd';
 import Logo from '../images/mayduu-black.png';
 import '../App.css';
 
@@ -18,14 +18,15 @@ function Register() {
 
     const isUserExists = users.some((user) => user.username === values.username);
     if (isUserExists) {
-      message.error('Bu kullanıcı adı zaten alınmış!');
+      alert('Bu kullanıcı adı zaten alınmış!');
+
       setLoading(false);
       return;
     }
 
     const isMailExists = users.some((user) => user.email === values.email);
     if (isMailExists) {
-      message.error('Bu e-mail zaten kullanımda!');
+      alert('Bu e-mail zaten kullanımda!');
       setLoading(false);
       return;
     }
@@ -33,14 +34,14 @@ function Register() {
     users.push(values);
     localStorage.setItem('users', JSON.stringify(users));
 
-    message.success('Bilgiler kaydedildi!');
+    alert('Bilgiler kaydedildi!');
     setLoading(false);
     navigate('/login');
   };
 
   return (
     
-    
+    <div className="register-wrapper">
     <div className="register-container">
       <img src={Logo} alt="mayduu logo" />
       <Title level={2} className="header" style={{marginBottom: "25px" }}>Mayduu'ya Hoş Geldin</Title>
@@ -102,6 +103,7 @@ function Register() {
           Kayıtlı mısın? <Link to="/login">Giriş yap</Link>
         </Text>
       </Form>
+    </div>
     </div>
   );
 }
