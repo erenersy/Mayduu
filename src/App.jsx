@@ -4,6 +4,7 @@ import Login from './components/Login';
 import TodoPage from './components/TodoPage';
 import ProfileEdit from './components/ProfileEdit';
 import UsersPage from './components/UsersPage';
+import Contact from './components/Contact';
 
 import 'antd/dist/reset.css';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/todopage" element={<TodoPage />} />
         <Route path="/profileedit" element={<ProfileEdit />} />
         <Route path="/userspage" element={<UsersPage />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
      </AntdApp>

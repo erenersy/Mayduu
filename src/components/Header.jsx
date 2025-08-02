@@ -76,6 +76,8 @@ useEffect(() => {
   const selectedKey = (() => {
   if (location.pathname === '/todopage') return 'homepage';
   if (location.pathname === '/userspage') return 'userspage';
+  if (location.pathname === '/contact') return 'contact';
+  
   return '';
 })();
 
