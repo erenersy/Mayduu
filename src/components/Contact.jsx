@@ -14,7 +14,7 @@ function Contact() {
 
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header user={user}/>
-       <main className="users-wrapper">
+       <main className="contact-wrapper">
         
           <Row>
             

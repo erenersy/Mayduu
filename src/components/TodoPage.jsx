@@ -94,7 +94,7 @@ function TodoPage() {
         handleLogout={handleLogout}
         setLogout={setLogout}
       />
-      <main className="main-content">
+      <main className="todo-wrapper">
         <div className="todo-container">
           <h1 className="todo-header">“Büyük işler küçük adımlarla başlar.”</h1>
           <div className="todos-container">

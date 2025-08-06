@@ -376,7 +376,7 @@ footer {
   padding: 15px 0;
 }
 
-.main-content {
+.todo-wrapper{
   flex: 1;
 }
 
@@ -481,4 +481,13 @@ height: 60px;
 .contact{
   background-color: #fff;
   height: 100px;
+}
+
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  flex:1;
+
 }

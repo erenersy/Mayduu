@@ -18,15 +18,15 @@ const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() =>{
     const fetchUsers = async () =>{
-try{
+    try{
    
       const response = await axios.get("https://jsonplaceholder.typicode.com/users")
       
       setUsers(response.data)
 
-}catch(error){
+    }catch(error){
   console.log(error)
-}
+  }
     }
     fetchUsers()
   }, [])
