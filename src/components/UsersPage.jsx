@@ -7,8 +7,8 @@ import { Button, Drawer, Table } from 'antd';
 
 
 function UsersPage() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const user = currentUser ? currentUser.username : null;
+
+
 
   const [users, setUsers] = useState("")
 
@@ -128,11 +128,11 @@ const columnsSecond = [  {
 
   
   return (
+    
 
+          <div>
+            
 
-          <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header user={user}/>
-            <main className="users-wrapper">
               <div className="users-screen">
         {users.length > 0 && users.map((user) => (
           <div key={user.id} className="user">
@@ -153,7 +153,7 @@ const columnsSecond = [  {
           </div>
                 
         ))} </div>
-      </main>
+
 
             <Drawer
         title={selectedUser ? selectedUser.name : ""}
@@ -176,7 +176,6 @@ const columnsSecond = [  {
 
         )}
       </Drawer>
-    <Footer />
     </div>
     
   )

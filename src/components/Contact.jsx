@@ -7,13 +7,13 @@ const { Title, Paragraph } = Typography;
 
 function Contact() {
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const user = currentUser ? currentUser.username : null;
+
+
 
   return (
 
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header user={user}/>
+
+
        <main className="contact-wrapper">
         
           <Row>
@@ -39,8 +39,8 @@ function Contact() {
 
 
         </main>
-<Footer />
-      </div>
+
+
 
   )
 }

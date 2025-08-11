@@ -3,14 +3,14 @@ import TodoList from './TodoList';
 import Header from './Header';
 import Footer from './Footer';
 import { useNavigate } from "react-router-dom";
-import { Button, Input, Form } from 'antd';
+import { Button, Input} from 'antd';
+
 
 function TodoPage() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const [logout, setLogout] = useState(false);
+
   const [edit, setEdit] = useState(false);        // Düzenleme ekranı açık mı?
   const [editText, setEditText] = useState('');   // Düzenleme kutusundaki metin
   const [editIndex, setEditIndex] = useState(null); // Hangi todo düzenleniyor
@@ -18,7 +18,6 @@ function TodoPage() {
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const todoKey = currentUser ? `todos_${currentUser.username}` : null;
-  const user = currentUser ? currentUser.username : null;
 
   useEffect(() => {
     if (!currentUser) {
@@ -73,27 +72,10 @@ function TodoPage() {
     setEditIndex(index);
   };
 
-  const handleProfile = () => {
-    setShowProfile(prev => !prev);
-    if (logout) {
-      setLogout(false);
-    }
-  };
-
-  const handleLogout = () => {
-    setLogout(prev => !prev);
-  };
-
   return (
-    <div className='app-container'>
-      <Header
-        user={user}
-        showProfile={showProfile}
-        logout={logout}
-        handleProfile={handleProfile}
-        handleLogout={handleLogout}
-        setLogout={setLogout}
-      />
+    
+
+
       <main className="todo-wrapper">
         <div className="todo-container">
           <h1 className="todo-header">“Büyük işler küçük adımlarla başlar.”</h1>
@@ -171,8 +153,8 @@ function TodoPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
+
+
   );
 }
 

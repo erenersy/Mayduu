@@ -6,7 +6,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 
 
+
 function Header({ user }) {
+
+
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 const [drawerVisible, setDrawerVisible] = useState(false);
@@ -43,6 +46,8 @@ useEffect(() => {
   };
 
   const menu = (
+
+    
     <Menu style={{marginTop: "30px"}}>
               <Avatar style={{ backgroundColor: '#ffffffff' }} size="large">
           {usergender}
@@ -133,7 +138,7 @@ useEffect(() => {
 
       <div className="profile-settings-wrapper">
         <div className="profile-settings">
-        
+
         <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
           <div className="settings-button">
           <Button icon={<SettingOutlined />} />

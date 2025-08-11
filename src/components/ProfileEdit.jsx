@@ -68,12 +68,8 @@ function ProfileEdit() {
 
   return (
     <>
-     <div className='app-container'>
-      <Header
-        user={currentUser.username}
-      />
          
-            <main className="main-content">
+
         <div className="edit-container">
           <div className="edit-page">
             <Form
@@ -133,10 +129,10 @@ function ProfileEdit() {
           </div>
         </div>
 
-      </main>
+
    
-      <Footer />
-         </div>
+
+
     </>
   );
 }
