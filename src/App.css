@@ -9,12 +9,23 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-image: linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.805)), url('../src/images/sea-background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
    background-attachment: fixed; 
    overflow: hidden
+}
+
+body.light-theme {
+  background-image: linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.805)), 
+                    url('../src/images/sea-background.jpg');
+  color: #000;
+}
+
+body.dark-theme {
+  background-image: linear-gradient(rgba(66, 66, 66, 0.255), rgba(20, 20, 20, 0.9)), 
+                    url('../src/images/galaxy-background.jpg');
+
 }
 
 .register-wrapper {
@@ -361,8 +372,15 @@ margin-right: 30px;
   flex: 1;
 }
 
-footer {
+.footer-light {
   background-color: #ffffff;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.footer-dark {
+  background-color: #000000 !important;
+  color: white;
   text-align: center;
   padding: 15px 0;
 }
@@ -488,6 +506,76 @@ height: 60px;
   flex: 1;
 }
 
+/* DARK THEME */
+
+.header-app-dark {
+  background: #000000;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.44);
+  color: #eee;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background-color: #000000 !important;
+
+  
+   /* seçili yazı rengi */
+}
+
+.ant-menu-dark .ant-menu-item {
+  background-color: #000000 !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected > .ant-menu-title-content {
+  border-bottom: 2px solid #40a9ff;
+  display: inline-block;  /* Sadece yazının genişliği kadar olur */
+  padding-bottom: 2px;
+}
+
+
+.drawer-dark .ant-drawer-header {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
+
+.drawer-dark .ant-drawer-body {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
+.drawer-dark .ant-menu {
+  background-color: #000000 !important;
+  color: #fff;
+}
+
+.drawer-dark .ant-menu {
+  background-color: #000000 !important;
+  color: #fff;
+}
+
+/* Menü öğesi hover rengini değiştir */
+.drawer-dark .ant-menu-item:hover {
+  background-color: #40a9ff  !important;
+  color: oklch(71.388% 0.15768 247.305) !important; /* açık mavi */
+}
+
+/* Seçili menü öğesinin altındaki çizgi ve yazı rengi */
+.drawer-dark .ant-menu-item-selected {
+  border-bottom: 2px solid #40a9ff !important;
+  color: #40a9ff !important;
+  background-color: transparent !important; /* arka planı kaldır */
+}
+
+/* Seçili olmayan menü öğesi yazı rengi */
+.drawer-dark .ant-menu-item {
+  color: #fff !important;
+}
+
+/* Linkler için */
+.drawer-dark .ant-menu-item a {
+  color: inherit;
+  text-decoration: none;
+}
 
 
 

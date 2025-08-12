@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import TodoList from './TodoList';
-import Header from './Header';
-import Footer from './Footer';
+
 import { useNavigate } from "react-router-dom";
 import { Button, Input} from 'antd';
 

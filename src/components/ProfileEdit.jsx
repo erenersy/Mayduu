@@ -1,5 +1,4 @@
-import Header from './Header';
-import Footer from './Footer';
+
 import { Form, Input, Button, Radio} from 'antd';
 
 function ProfileEdit() {

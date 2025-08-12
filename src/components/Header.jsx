@@ -1,13 +1,25 @@
 import { useState, useEffect } from 'react';
-import { Avatar, Dropdown, Menu, Button, Popconfirm,Drawer } from 'antd';
+import { Avatar, Dropdown, Menu, Button, Popconfirm,Drawer, Switch } from 'antd';
 import {SettingOutlined, MenuOutlined } from '@ant-design/icons';
 import Logo from '../images/mayduu-black.png';
+import LogoDark from '../images/mayduu-white.png';
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useContext } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext';
+import { CloseOutlined } from '@ant-design/icons';
+import "@theme-toggles/react/css/Classic.css"
+import { Expand } from "@theme-toggles/react"
+
+
 
 
 
 
 function Header({ user }) {
+
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  
 
 
 
@@ -47,8 +59,8 @@ useEffect(() => {
 
   const menu = (
 
-    
-    <Menu style={{marginTop: "30px"}}>
+  
+    <Menu theme={theme} style={{marginTop: "30px"}}>
               <Avatar style={{ backgroundColor: '#ffffffff' }} size="large">
           {usergender}
         </Avatar>
@@ -75,6 +87,14 @@ useEffect(() => {
 </Button>
         </Popconfirm>
       </Menu.Item>
+      <Menu.Item key="theme">
+
+        
+      <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+  {theme === 'light' ? '🌙' : '☀️'}
+  
+</Button>
+</Menu.Item>
     </Menu>
   );
 
@@ -87,11 +107,17 @@ useEffect(() => {
 })();
 
   return (
-    <header className="header-app">
+
+    
+<header className={`header-app ${theme === 'dark' ? 'header-app-dark' : ''}`}>
       <div className="logo">
 <Link to="/todopage">
-  <img src={Logo} alt="mayduu logo" />
+ <img 
+  src={theme === 'dark' ? LogoDark : Logo} 
+  alt="mayduu logo" 
+/>
 </Link>
+
         
       </div>
 
@@ -102,13 +128,15 @@ useEffect(() => {
       
       onClick={() => setDrawerVisible(true)}
     />
-    <Drawer
+    <Drawer className={theme === 'dark' ? 'drawer-dark' : ''}
+    theme={theme}
       title="Menü"
       placement="left"
       onClose={() => setDrawerVisible(false)}
       open={drawerVisible}
+      closeIcon={<CloseOutlined style={{ color: theme === 'dark' ? '#fff' : '#000' }} />}
     >
-      <Menu
+      <Menu  theme={theme}
         mode="vertical"
         selectedKeys={[selectedKey]}
 
@@ -123,6 +151,7 @@ useEffect(() => {
   </>
 ) : (
   <Menu
+  theme={theme}
     className="menu-bar"
     mode="horizontal"
     selectedKeys={[selectedKey]}
@@ -134,6 +163,7 @@ useEffect(() => {
     ]}
   />
 )}
+
 
 
       <div className="profile-settings-wrapper">

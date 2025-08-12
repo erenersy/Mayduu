@@ -1,26 +1,29 @@
-import Header from './Header';
-import Footer from './Footer';
+
 import { Descriptions, Typography, Row, Col } from 'antd';
+import { ThemeContext } from '../contexts/ThemeContext';
+import { useContext } from 'react';
 
 
 const { Title, Paragraph } = Typography;
 
 function Contact() {
 
+   const { theme } = useContext(ThemeContext);
+
 
 
 
   return (
 
-
+ 
 
        <main className="contact-wrapper">
         
           <Row>
             
         <Col>
-          <Title level={2}>Bizimle İletişime Geçin</Title> 
-          <Paragraph style={{ marginBottom: 24 }}>
+          <Title style={{ color: theme === 'dark' ? '#fff' : '#000' }}   level={2}>Bizimle İletişime Geçin</Title> 
+          <Paragraph  style={{ marginBottom: 24, color: theme === 'dark' ? '#fff' : '#000' }}>
             Aşağıdaki bilgilerden bizimle her zaman iletişime geçebilirsiniz.
           </Paragraph>
 

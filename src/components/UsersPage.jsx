@@ -1,5 +1,4 @@
-import Header from './Header';
-import Footer from './Footer';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { EyeOutlined } from '@ant-design/icons';
@@ -20,7 +19,7 @@ const [selectedUser, setSelectedUser] = useState(null);
     const fetchUsers = async () =>{
     try{
    
-      const response = await axios.get("https://jsonplaceholder.typicode.com/users")
+      const response = await axios.get("https://jsonplaceolder.typicode.com/users")
       
       setUsers(response.data)
 
