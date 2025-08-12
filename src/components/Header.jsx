@@ -7,9 +7,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useContext } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { CloseOutlined } from '@ant-design/icons';
-import "@theme-toggles/react/css/Classic.css"
-import { Expand } from "@theme-toggles/react"
-
+import ThemeToggle from './ThemeToggle';
 
 
 
@@ -17,9 +15,7 @@ import { Expand } from "@theme-toggles/react"
 
 function Header({ user }) {
 
-  const { theme, setTheme } = useContext(ThemeContext);
-
-  
+  const { theme } = useContext(ThemeContext);
 
 
 
@@ -68,6 +64,7 @@ useEffect(() => {
       <Menu.Item key="edit" onClick={handleProfileEdit} >
 
         <Button className='button' type='none'>Profili Düzenle</Button>
+        
       </Menu.Item>
       <Menu.Item key="logout">
         <Popconfirm 
@@ -90,11 +87,8 @@ useEffect(() => {
       <Menu.Item key="theme">
 
         
-      <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-  {theme === 'light' ? '🌙' : '☀️'}
-  
-</Button>
 </Menu.Item>
+<ThemeToggle />
     </Menu>
   );
 
@@ -109,7 +103,10 @@ useEffect(() => {
   return (
 
     
+
+    
 <header className={`header-app ${theme === 'dark' ? 'header-app-dark' : ''}`}>
+
       <div className="logo">
 <Link to="/todopage">
  <img 
@@ -167,6 +164,7 @@ useEffect(() => {
 
 
       <div className="profile-settings-wrapper">
+        
         <div className="profile-settings">
 
         <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>

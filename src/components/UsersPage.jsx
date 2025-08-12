@@ -19,7 +19,7 @@ const [selectedUser, setSelectedUser] = useState(null);
     const fetchUsers = async () =>{
     try{
    
-      const response = await axios.get("https://jsonplaceolder.typicode.com/users")
+      const response = await axios.get("https://jsonplaceholder.typicode.com/users")
       
       setUsers(response.data)
 
@@ -169,7 +169,7 @@ const columnsSecond = [  {
           <h2>Şirket Bilgileri</h2>
           <Table  scroll={{ x: 'max-content' }} dataSource={usersCompanyDataSource} columns={columnsSecond} />
           </div>
-          
+        
 
           </>
 
