@@ -1,9 +1,16 @@
 
 import { Button, Popconfirm, List, Typography } from 'antd';
+import { useContext } from 'react';
+import { LanguageContext } from '../contexts/LanguageContext';
+import translations from './Translations';
 
 const { Text } = Typography;
 
 function TodoList({ todos, onDelete, onToggle, onEdit }) {
+
+    const { language } = useContext(LanguageContext);
+    const t = translations[language];
+
 
 
   return (
@@ -15,19 +22,19 @@ function TodoList({ todos, onDelete, onToggle, onEdit }) {
           <List.Item
             actions={[
               <Button type={todo.done ? "default" : "primary"} onClick={() => onToggle(index)}>
-                {todo.done ? 'Geri Al' : 'Tamamla'}
+                {todo.done ? t.undo : t.complete}
               </Button>,
-              <Button onClick={() => onEdit(index)}>Düzenle</Button>,
+              <Button onClick={() => onEdit(index)}>{t.edit}</Button>,
               <Popconfirm
                 title="Silmek istediğinize emin misiniz?"
                 onConfirm={() => onDelete(index)}
-                okText="Evet"
-                cancelText="Hayır"
+                okText={t.yes}
+                cancelText={t.no}
                 okButtonProps={{ className: "button", type: "none"}}
   cancelButtonProps={{ className: "button", type: "none" }}
 
               >
-                <Button danger>Sil</Button>
+                <Button danger>{t.delete}</Button>
               </Popconfirm>,
             ]}
           >

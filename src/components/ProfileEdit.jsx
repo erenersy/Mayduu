@@ -1,7 +1,14 @@
 
 import { Form, Input, Button, Radio} from 'antd';
+import { useContext } from 'react';
+import translations from './Translations';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 function ProfileEdit() {
+
+    const { language } = useContext(LanguageContext);
+    const t = translations[language].profileEditPage;
+
   const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
 
   const [form] = Form.useForm();
@@ -34,12 +41,12 @@ function ProfileEdit() {
   );
 
   if (isUsernameTakenByAnother) {
-    alert("Bu kullanıcı adı zaten kullanımda.");
+    alert(t.usernameTaken);
     return;
   }
 
   if (isEmailTakenByAnother) {
-    alert("Bu e-posta adresi zaten kullanımda.");
+    alert(t.emailTaken);
     return;
   }
 
@@ -49,7 +56,7 @@ function ProfileEdit() {
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-    alert("Bilgiler Güncellendi.");
+    alert(t.updated);
 
     // Todo key güncellemesi
     const oldTodoKey = `todos_${currentUser.username}`;
@@ -79,49 +86,49 @@ function ProfileEdit() {
               initialValues={initialValues}
               className="inputs"
             >
-              <h1>Profil Bilgilerin</h1>
+              <h1>{t.header}</h1>
 
               <Form.Item
-                label="Kullanıcı Adı"
+                label={t.username}
                 name="username"
-                rules={[{ required: true, message: 'Lütfen kullanıcı adınızı girin!' }]}
+                rules={[{ required: true, message: t.usernameRequired }]}
               >
-                <Input placeholder="Kullanıcı Adı Giriniz" />
+                <Input placeholder={t.username} />
               </Form.Item>
 
               <Form.Item
-                label="Email"
+                label={t.email}
                 name="email"
                 rules={[
-                  { required: true, message: 'Lütfen email girin!' },
-                  { type: 'email', message: 'Geçerli bir email girin!' }
+              { required: true, message: t.emailRequired },
+              { type: 'email', message: t.emailInvalid }
                 ]}
               >
-                <Input placeholder="Email Giriniz" />
+                <Input placeholder={t.email} />
               </Form.Item>
 
               <Form.Item
-                label="Şifre"
+                label={t.password}
                 name="password"
-                rules={[{ required: true, message: 'Lütfen şifrenizi girin!' }]}
+                rules={[{ required: true, message: t.passwordRequired }]}
               >
-                <Input.Password placeholder="Şifre Giriniz" />
+                <Input.Password placeholder={t.password} />
               </Form.Item>
 
               <Form.Item
-                label="Cinsiyet"
+                label={t.gender}
                 name="gender"
-                rules={[{ required: true, message: 'Lütfen cinsiyet seçin!' }]}
+                rules={[{ required: true, message: t.genderRequired }]}
               >
                 <Radio.Group>
-                  <Radio value="Kadın">Kadın</Radio>
-                  <Radio value="Erkek">Erkek</Radio>
+              <Radio value="Kadın">{t.genderOptions.female}</Radio>
+              <Radio value="Erkek">{t.genderOptions.male}</Radio>
                 </Radio.Group>
               </Form.Item>
 
               <Form.Item>
                 <Button className="button" type="none" htmlType="submit">
-                  Bilgileri Güncelle
+                  {t.submitButton}
                 </Button>
               </Form.Item>
             </Form>

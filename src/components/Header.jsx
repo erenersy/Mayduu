@@ -8,7 +8,9 @@ import { useContext } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { CloseOutlined } from '@ant-design/icons';
 import ThemeToggle from './ThemeToggle';
-
+import LanguageToggle from './LanguageToggle';
+import { LanguageContext } from '../contexts/LanguageContext';
+import translations from './Translations';
 
 
 
@@ -16,6 +18,9 @@ import ThemeToggle from './ThemeToggle';
 function Header({ user }) {
 
   const { theme } = useContext(ThemeContext);
+  const { language } = useContext(LanguageContext);
+
+  const t = translations[language];
 
 
 
@@ -60,27 +65,27 @@ useEffect(() => {
               <Avatar style={{ backgroundColor: '#ffffffff' }} size="large">
           {usergender}
         </Avatar>
-        <b>hoşgeldin {user}</b>
+        <b>{t.welcome} {user}</b>
       <Menu.Item key="edit" onClick={handleProfileEdit} >
 
-        <Button className='button' type='none'>Profili Düzenle</Button>
+        <Button className='button' type='none'>{t.profileEdit}</Button>
         
       </Menu.Item>
       <Menu.Item key="logout">
         <Popconfirm 
 
           placement="bottom"
-          title="Çıkış yapmak istediğine emin misin?"
+          title={t.logoutConfirm}
           
           onConfirm={handleLogoutConfirm}
-          okText = "Evet"
-          cancelText="Hayır"
+          okText = {t.yes}
+          cancelText={t.no}
             okButtonProps={{ className: "button", type: "none"}}
   cancelButtonProps={{ className: "button", type: "none" }}
           
         >
           <Button className='button' type='none' style={{ display: 'flex', textAlign: 'center' }}>
-  Çıkış Yap
+  {t.logout}
 </Button>
         </Popconfirm>
       </Menu.Item>
@@ -88,6 +93,7 @@ useEffect(() => {
 
         
 </Menu.Item>
+
 <ThemeToggle />
     </Menu>
   );
@@ -127,7 +133,7 @@ useEffect(() => {
     />
     <Drawer className={theme === 'dark' ? 'drawer-dark' : ''}
     theme={theme}
-      title="Menü"
+      title={t.logoutConfirm}
       placement="left"
       onClose={() => setDrawerVisible(false)}
       open={drawerVisible}
@@ -139,9 +145,9 @@ useEffect(() => {
 
         onClick={() => setDrawerVisible(false)}
         items={[
-          { key: 'homepage', label: <Link to="/todopage">Ana Menü</Link> },
-          { key: 'userspage', label: <Link to="/userspage">Kullanıcılar</Link> },
-          { key: 'contact', label: <Link to="/contact">İletişim</Link> }
+          { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
+          { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
+          { key: 'contact', label: <Link to="/contact">{t.contact}</Link> }
         ]}
       />
     </Drawer>
@@ -154,15 +160,18 @@ useEffect(() => {
     selectedKeys={[selectedKey]}
     style={{ display: "flex", textAlign: 'center', justifyContent: "center" }}
     items={[
-      { key: 'homepage', label: <Link to="/todopage">Ana Menü</Link> },
-      { key: 'userspage', label: <Link to="/userspage">Kullanıcılar</Link> },
-      { key: 'contact', label: <Link to="/contact">İletişim</Link> }
+    { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
+          { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
+          { key: 'contact', label: <Link to="/contact">{t.contact}</Link> }
     ]}
   />
 )}
 
 
-
+<div className="control-panel">
+  <div className="langueage-wrapper">
+    <LanguageToggle />
+  </div>
       <div className="profile-settings-wrapper">
         
         <div className="profile-settings">
@@ -172,6 +181,7 @@ useEffect(() => {
           <Button icon={<SettingOutlined />} />
           </div>
         </Dropdown>
+      </div>
       </div>
       </div>
     </header>

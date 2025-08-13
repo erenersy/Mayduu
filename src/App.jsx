@@ -13,6 +13,7 @@ import 'antd/dist/reset.css';
 
 import { ConfigProvider, App as AntdApp } from 'antd';
 import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
+import { LanguageProvider, LanguageContext } from "./contexts/LanguageContext";
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 const user = currentUser ? currentUser.username : null;
@@ -54,6 +55,7 @@ function AppContent() {
 
 function InnerApp() {
   const { theme } = useContext(ThemeContext);
+  const { language } = useContext(LanguageContext);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -78,7 +80,9 @@ function InnerApp() {
 function App() {
   return (
     <ThemeProvider>
+       <LanguageProvider>
       <InnerApp />
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

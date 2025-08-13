@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import TodoList from './TodoList';
 
 import { useNavigate } from "react-router-dom";
 import { Button, Input} from 'antd';
+import { LanguageContext } from '../contexts/LanguageContext';
+import translations from './Translations';
 
 
 function TodoPage() {
+
+  const { language } = useContext(LanguageContext);
+  const t = translations[language];
+
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
@@ -77,28 +83,28 @@ function TodoPage() {
 
       <main className="todo-wrapper">
         <div className="todo-container">
-          <h1 className="todo-header">“Büyük işler küçük adımlarla başlar.”</h1>
+          <h1 className="todo-header">{t.header}</h1>
           <div className="todos-container">
 
             {/* Yeni Görev Ekleme Alanı */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
               <Input
-                placeholder="Yeni görev ekle"
+                placeholder={t.addPlaceholder}
                 value={newTodo}
                 onChange={(e) => setNewTodo(e.target.value)}
                 onPressEnter={handleAdd}
                 allowClear
               />
               <Button className="button" type='none' onClick={handleAdd}>
-                Ekle
+                {t.addButton}
               </Button>
             </div>
 
             {edit ? (
               <div className="edit-page" style={{ marginBottom: '20px' }}>
-                <h2>Görevi Düzenle</h2>
+                <h2>{t.editHeader}</h2>
                 <Input
-                  placeholder="Yeni metni girin"
+                  placeholder={t.editPlaceholder}
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                   onPressEnter={() => {
@@ -123,7 +129,7 @@ function TodoPage() {
                       setEditText('');
                     }}
                   >
-                    Kaydet
+                    {t.save}
                   </Button>
                   <Button
                     danger
@@ -134,7 +140,7 @@ function TodoPage() {
                       setEditText('');
                     }}
                   >
-                    Vazgeç
+                    {t.cancel}
                   </Button>
                 </div>
               </div>

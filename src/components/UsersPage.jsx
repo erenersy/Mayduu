@@ -1,13 +1,16 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { EyeOutlined } from '@ant-design/icons';
 import { Button, Drawer, Table } from 'antd'; 
+import { LanguageContext } from '../contexts/LanguageContext';
+import translations from './Translations';
 
 
 function UsersPage() {
 
-
+  const { language } = useContext(LanguageContext);
+  const t = translations[language];
 
   const [users, setUsers] = useState("")
 
@@ -56,73 +59,23 @@ key: '2',
   ] : [];
 
 const columnsFirst = [
-  {
-    title: 'Kullanıcı Adı',
-    dataIndex: 'username',
-    key: 'username',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Telefon No',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
-  {
-    title: 'Website',
-    dataIndex: 'website',
-    key: 'website',
-  },
-  {
-    title: 'Şehir',
-    dataIndex: 'city',
-    key: 'city',
-  },
-  {
-    title: 'Sokak',
-    dataIndex: 'street',
-    key: 'street',
-  },
-  {
-    title: 'Suite',
-    dataIndex: 'suite',
-    key: 'suite',
-  },
-  {
-    title: 'Posta Kodu',
-    dataIndex: 'zipcode',
-    key: 'zipcode',
-  },
-  {
-    title: 'Enlem',
-    dataIndex: 'lat',
-    key: 'lat',
-  },
-  {
-    title: 'Boylam',
-    dataIndex: 'lng',
-    key: 'lng',
-  },
+     { title: t.username, dataIndex: 'username', key: 'username' },
+    { title: t.email, dataIndex: 'email', key: 'email' },
+    { title: t.phone, dataIndex: 'phone', key: 'phone' },
+    { title: t.website, dataIndex: 'website', key: 'website' },
+    { title: t.city, dataIndex: 'city', key: 'city' },
+    { title: t.street, dataIndex: 'street', key: 'street' },
+    { title: t.suite, dataIndex: 'suite', key: 'suite' },
+    { title: t.zipcode, dataIndex: 'zipcode', key: 'zipcode' },
+    { title: t.lat, dataIndex: 'lat', key: 'lat' },
+    { title: t.lng, dataIndex: 'lng', key: 'lng' },
 ];
 
-const columnsSecond = [  {
-    title: 'Şirket Adı',
-    dataIndex: 'companyName',
-    key: 'companyName',
-  },
-  {
-    title: 'Slogan',
-    dataIndex: 'catchPhrase',
-    key: 'catchPhrase',
-  },
-  {
-    title: 'Strateji',
-    dataIndex: 'bs',
-    key: 'bs',
-  }]
+const columnsSecond = [   
+  { title: t.companyName, dataIndex: 'companyName', key: 'companyName' },
+    { title: t.catchPhrase, dataIndex: 'catchPhrase', key: 'catchPhrase' },
+    { title: t.bs, dataIndex: 'bs', key: 'bs' },
+  ]
 
 
   
@@ -138,8 +91,8 @@ const columnsSecond = [  {
             <div className="panel-color">
             </div>
 <div className="usersinfo">
-           <p><b> İsim:  </b>  {user.name}</p>
-           <p><b> Kullanıcı Adı:  </b> {user.username}</p>
+          <p><b>{t.name}: </b> {user.name}</p>
+              <p><b>{t.username}: </b> {user.username}</p>
            </div>
  
     <Button

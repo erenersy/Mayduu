@@ -7,6 +7,7 @@ const { Title, Text } = Typography;
 
 function Login() {
   const navigate = useNavigate();
+  
 
   // Form gönderildiğinde çalışacak fonksiyon
   const onFinish = (values) => {
