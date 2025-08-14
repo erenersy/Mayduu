@@ -238,6 +238,9 @@ ul {
   
 }
 
+.menu-bar { order: 2; }
+.control-panel { order: 3; }
+
 .header img {
   width: 150px;
   height: 150px;
@@ -362,7 +365,7 @@ box-shadow: 0 0 10px #b1b1b1;
 height: 70px;
 width: 70px;
 
-margin-right: 30px;
+
 }
 
 .app-container {
@@ -525,6 +528,16 @@ height: 60px;
   background-color: #000000 !important;
 }
 
+.ant-menu-dark {
+  background: none !important;
+}
+
+.menu-wrapper{
+  flex: 1;
+
+}
+
+
 .ant-menu-dark .ant-menu-item-selected > .ant-menu-title-content {
   border-bottom: 2px solid #40a9ff;
   display: inline-block;  /* Sadece yazının genişliği kadar olur */
@@ -580,7 +593,8 @@ height: 60px;
 .control-panel {
   display: flex;
   align-items: center;
-  width: 100px;
+  width: 80px;
+  gap: 8px;
 
 }
 
@@ -588,5 +602,40 @@ height: 60px;
    
    background-color: #000000;
   
+}
+
+
+.menu-bar {
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+
+}
+
+
+/* Hamburger varsayılan gizli */
+.hamburger-button {
+  display: none;
+}
+
+/* Media query: 768px altı */
+@media (max-width: 768px) {
+  .menu-bar {
+    display: none;
+  }
+
+  .hamburger-button {
+    display: block;
+    order: 3; /* en sağda */
+  }
+
+  .control-panel {
+    order: 2; /* hamburgerdan önce yani sağda */
+    margin-left: auto;
+    width: 80px;
+  }
 }
 

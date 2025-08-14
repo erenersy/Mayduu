@@ -23,18 +23,7 @@ function Header({ user }) {
   const t = translations[language];
 
 
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 const [drawerVisible, setDrawerVisible] = useState(false);
-
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, []);
-
 
   const [usergender, setUserGender] = useState("👨🏻");
   const navigate = useNavigate();
@@ -106,85 +95,69 @@ useEffect(() => {
   return '';
 })();
 
+
   return (
 
     
 
     
 <header className={`header-app ${theme === 'dark' ? 'header-app-dark' : ''}`}>
+  <div className="logo">
+    <Link to="/todopage">
+      <img src={theme === 'dark' ? LogoDark : Logo} alt="mayduu logo" />
+    </Link>
+  </div>
 
-      <div className="logo">
-<Link to="/todopage">
- <img 
-  src={theme === 'dark' ? LogoDark : Logo} 
-  alt="mayduu logo" 
-/>
-</Link>
-
-        
-      </div>
-
-{isMobile ? (
-  <>
-    <Button
-      icon={<MenuOutlined />}
-      
-      onClick={() => setDrawerVisible(true)}
-    />
-    <Drawer className={theme === 'dark' ? 'drawer-dark' : ''}
-    theme={theme}
-      title={t.logoutConfirm}
-      placement="left"
-      onClose={() => setDrawerVisible(false)}
-      open={drawerVisible}
-      closeIcon={<CloseOutlined style={{ color: theme === 'dark' ? '#fff' : '#000' }} />}
-    >
-      <Menu  theme={theme}
-        mode="vertical"
-        selectedKeys={[selectedKey]}
-
-        onClick={() => setDrawerVisible(false)}
-        items={[
-          { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
-          { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
-          { key: 'contact', label: <Link to="/contact">{t.contact}</Link> }
-        ]}
-      />
-    </Drawer>
-  </>
-) : (
+  {/* Yatay menü */}
+  <div className="menu-wrapper">
   <Menu
-  theme={theme}
+    theme={theme}
     className="menu-bar"
     mode="horizontal"
     selectedKeys={[selectedKey]}
-    style={{ display: "flex", textAlign: 'center', justifyContent: "center" }}
     items={[
-    { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
-          { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
-          { key: 'contact', label: <Link to="/contact">{t.contact}</Link> }
+      { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
+      { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
+      { key: 'contact', label: <Link to="/contact">{t.contact}</Link> },
     ]}
   />
-)}
-
-
-<div className="control-panel">
-  <div className="langueage-wrapper">
-    <LanguageToggle />
   </div>
-      <div className="profile-settings-wrapper">
-        
-        <div className="profile-settings">
+  
 
-        <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
-          <div className="settings-button">
-          <Button icon={<SettingOutlined />} />
-          </div>
-        </Dropdown>
-      </div>
-      </div>
-      </div>
-    </header>
+  {/* Hamburger buton */}
+  <Button
+    className="hamburger-button"
+    icon={<MenuOutlined />}
+    onClick={() => setDrawerVisible(true)}
+  />
+
+  {/* Drawer */}
+  <Drawer
+    className={theme === 'dark' ? 'drawer-dark' : ''}
+    placement="left"
+    onClose={() => setDrawerVisible(false)}
+    open={drawerVisible}
+    closeIcon={<CloseOutlined style={{ color: theme === 'dark' ? '#fff' : '#000' }} />}
+  >
+    <Menu
+      mode="vertical"
+      selectedKeys={[selectedKey]}
+      onClick={() => setDrawerVisible(false)}
+      items={[
+        { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
+        { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
+        { key: 'contact', label: <Link to="/contact">{t.contact}</Link> },
+      ]}
+    />
+  </Drawer>
+
+  <div className="control-panel">
+    <LanguageToggle />
+    <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
+      <Button icon={<SettingOutlined />} />
+    </Dropdown>
+  </div>
+</header>
   );
 }
 
