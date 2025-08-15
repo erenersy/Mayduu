@@ -55,7 +55,7 @@ function AppContent() {
 
 function InnerApp() {
   const { theme } = useContext(ThemeContext);
-  const { language } = useContext(LanguageContext);
+
 
   useEffect(() => {
     if (theme === 'dark') {

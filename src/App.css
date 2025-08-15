@@ -535,6 +535,7 @@ height: 60px;
 .menu-wrapper{
   flex: 1;
 
+
 }
 
 
@@ -593,8 +594,8 @@ height: 60px;
 .control-panel {
   display: flex;
   align-items: center;
-  width: 80px;
-  gap: 8px;
+  min-width: 200px;
+  gap: 20px;
 
 }
 
@@ -635,7 +636,125 @@ height: 60px;
   .control-panel {
     order: 2; /* hamburgerdan önce yani sağda */
     margin-left: auto;
+    margin-right: 10px;
+
     width: 80px;
   }
 }
+
+/* THEME TOGGLE */
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+
+}
+
+.checkbox-label {
+  background-color: #111;
+  width: 50px;
+  height: 26px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 12px;
+}
+
+.fa-moon {
+  color: #f1c40f;
+}
+
+.fa-sun {
+  color: #f39c12;
+}
+
+.checkbox-label .ball {
+  background-color: #fff;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+
+/* Language Toggle */
+
+
+
+input[type="checkbox"] {
+  display: none;
+}
+
+#button {
+
+  position: relative;
+  display: block;
+  left: 75px;
+  width: 70px;
+  height: 26.4px;
+  background-color: #b80404;
+  border-radius: 30px;
+  cursor: pointer;
+
+
+  transition: background-color 0.3s ease;
+}
+
+#knob {
+  width: 21px;
+  height: 21px;
+  background-color: #fff;
+  position: absolute;
+  top: 3px;
+  left: 1px;
+  border-radius: 50%;
+  transition: 0.4s ease left, 0.4s ease background-color;
+  background-image: url(https://i.hizliresim.com/ltsw1d9.jpg);
+  background-size: cover;
+  background-position: center;;
+}
+
+#language-text {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: color 0.4s ease, left 0.4s ease;;
+}
+
+#language-toggle:checked + #button {
+  background-color: #0d1366;
+}
+
+#language-toggle:checked + #button #knob {
+  
+  left: 44px;
+  background-color: #ffffff;
+  background-image: url(https://m.media-amazon.com/images/I/61dHFpZmRSL._AC_UF1000,1000_QL80_.jpg);
+}
+
+#language-toggle:checked + #button #language-text {
+  color: #ffffff;
+  left: 8px;
+  transition: left 0.4s ease;
+}
+
+.ant-menu-overflow {
+margin-left: 90px;
+}
+
 

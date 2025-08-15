@@ -50,7 +50,7 @@ const [drawerVisible, setDrawerVisible] = useState(false);
   const menu = (
 
   
-    <Menu theme={theme} style={{marginTop: "30px"}}>
+    <Menu theme={theme} style={{marginTop: "30px", paddingRight: "15px"}}>
               <Avatar style={{ backgroundColor: '#ffffffff' }} size="large">
           {usergender}
         </Avatar>
@@ -140,13 +140,17 @@ const [drawerVisible, setDrawerVisible] = useState(false);
     closeIcon={<CloseOutlined style={{ color: theme === 'dark' ? '#fff' : '#000' }} />}
   >
     <Menu
+    className='"horizantal-menu'
       mode="vertical"
       selectedKeys={[selectedKey]}
       onClick={() => setDrawerVisible(false)}
+      
       items={[
+        
         { key: 'homepage', label: <Link to="/todopage">{t.home}</Link> },
         { key: 'userspage', label: <Link to="/userspage">{t.users}</Link> },
         { key: 'contact', label: <Link to="/contact">{t.contact}</Link> },
+
       ]}
     />
   </Drawer>
@@ -154,7 +158,7 @@ const [drawerVisible, setDrawerVisible] = useState(false);
   <div className="control-panel">
     <LanguageToggle />
     <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
-      <Button icon={<SettingOutlined />} />
+      <Button style={{marginLeft: "auto"}}icon={<SettingOutlined />} />
     </Dropdown>
   </div>
 </header>
